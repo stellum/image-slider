@@ -48,6 +48,22 @@ export default class imageSlider {
   addEvent() {
     this.nextBtnEl.addEventListener('click', this.moveToRight.bind(this));
     this.previousBtnEl.addEventListener('click', this.moveToLeft.bind(this));
+    this.indicatorWrapEl.addEventListener(
+      'click',
+      this.onClickIndicator.bind(this),
+    );
+  }
+
+  onClickIndicator(event) {
+    const indexPosition = parseInt(event.target.dataset.index);
+    if (Number.isInteger(indexPosition)) {
+      this.#currentPosition = indexPosition;
+      this.sliderListEl.style.left = `-${
+        this.#slideWidth * this.#currentPosition
+      }px`;
+      this.setIndicator();
+    }
+    // console.log(indexPosition);
   }
 
   moveToRight() {
